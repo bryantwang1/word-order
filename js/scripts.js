@@ -3,7 +3,6 @@ var count=[];
 var index=0;
 var theArray=[];
 var finalArray=[];
-
 function uniqueArrayDiego(words){
   var wordsArray = words.split(" ");
   theArray.push(wordsArray[0]);
@@ -35,6 +34,22 @@ function uniqueArrayBryant(sentence) {
     };
   });
 };
+function addValues(word, count){
+  finalArray.push({words:word,tmpCount:count})
+}
+
+function sortThem(){
+  finalArray =  finalArray.sort(function (a, b) {
+      if (a.tmpCount < b.tmpCount) {
+        return 1;
+      }
+      if (a.tmpCount > b.tmpCount) {
+        return -1;
+      }
+      // a must be equal to b
+      return 0;
+    });
+}
 
 function countWords(sentence) {
   var countArray = sentence.split(" ");
@@ -46,9 +61,9 @@ function countWords(sentence) {
     };
 
     var tempCount = countArray.filter(filterWord).length;
-    console.log("filtered :" + tempCount);
-    finalArray.push(word1 + " " + tempCount);
-    console.log("final :" + finalArray);
+    addValues(word1, tempCount);
+    sortThem();
+    console.log(finalArray);
   });
 };
 
@@ -70,8 +85,14 @@ $(function() {
 
     countWords(sentence);
 
-    finalArray.forEach(function(wordAndCount) {
-      $("ul").append("<li>"+ wordAndCount +"</li>");
-    });
+
+    for(var i=0;i<finalArray.length;i++){
+      $("ul").append("<li>"+ finalArray[i].words + " "+finalArray[i].tmpCount+"</li>");
+    }
+
+
+    // finalArray.forEach(function(wordAndCount) {
+    //   $("ul").append("<li>"+ wordAndCount +"</li>");
+    // });
   });
 });
