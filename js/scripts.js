@@ -79,8 +79,9 @@ $(function() {
 
   $("form").submit(function(event){
     event.preventDefault();
-
+    $("ul").empty();
     theArray = [];
+    finalArray=[];
     sentence=$("#sentence").val();
 
     countWords(sentence);
